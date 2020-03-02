@@ -64,13 +64,13 @@
                 
                 fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
                 
-                fixed3 diffuse = unity_LightColor[0].rgb * albedo * saturate(dot(worldNormal,worldLightDir));
+                fixed3 diffuse = _LightColor0.rgb * albedo * saturate(dot(worldNormal,worldLightDir));
                 
                 fixed3 reflectDir = normalize(reflect(-worldLightDir,worldNormal));
              
                 fixed3 viewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
                 fixed3 halfDir = normalize(worldLightDir + viewDir);
-                fixed3 specular = unity_LightColor[0].rgb * _Specular.rgb * pow(saturate(dot(reflectDir,halfDir)),_Gloss);
+                fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(saturate(dot(reflectDir,halfDir)),_Gloss);
                   
                 return fixed4(ambient + diffuse + specular,1.0);
                 

@@ -1,7 +1,4 @@
-﻿// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Learn/PerVertexLightDiffuse"
+﻿Shader "Learn/PerVertexLightDiffuse"
 {
     Properties
     {
@@ -19,7 +16,8 @@ Shader "Learn/PerVertexLightDiffuse"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-           
+            #include "Lighting.cginc"
+            
             fixed4 _Diffuse;
             
             struct a2v
@@ -43,7 +41,7 @@ Shader "Learn/PerVertexLightDiffuse"
                 
                 fixed3 worldNormal = normalize(mul(v.normal,(float3x3) unity_WorldToObject));
                 fixed3 worldLight = normalize(_WorldSpaceLightPos0.xyz);
-                fixed3 diffuse = unity_LightColor[0].rgb * _Diffuse.rgb * saturate(dot(worldNormal,worldLight));
+                fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal,worldLight));
                 
                 o.color = ambient + diffuse;
                 

@@ -18,7 +18,8 @@
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-           
+            #include "Lighting.cginc"
+            
             fixed4 _Diffuse;
             fixed4 _Specular;
             float _Gloss;
@@ -45,11 +46,11 @@
                 fixed3 worldNormal = normalize(mul(v.normal,(float3x3) unity_WorldToObject));
                 fixed3 worldLight = normalize(_WorldSpaceLightPos0.xyz);
                 
-                fixed3 diffuse = unity_LightColor[0].rgb * _Diffuse.rgb * saturate(dot(worldNormal,worldLight));
+                fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal,worldLight));
                 
                 fixed3 reflectDir = normalize(reflect(-worldLight,worldNormal));
                 fixed3 viewDir = normalize(_WorldSpaceCameraPos.xyz - mul(unity_ObjectToWorld,v.vertex).xyz);
-                fixed3 specular = unity_LightColor[0].rgb * _Specular.rgb * pow(saturate(dot(reflectDir,viewDir)),_Gloss);
+                fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(saturate(dot(reflectDir,viewDir)),_Gloss);
                 
                 o.color = ambient + diffuse + specular;
                 

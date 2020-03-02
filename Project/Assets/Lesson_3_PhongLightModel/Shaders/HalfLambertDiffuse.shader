@@ -16,7 +16,8 @@
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-           
+            #include "Lighting.cginc"
+            
             fixed4 _Diffuse;
             
             struct a2v
@@ -48,7 +49,7 @@
                 fixed3 worldNormal = normalize(i.worldNormal);
                 fixed3 worldLight = normalize(_WorldSpaceLightPos0.xyz);
                 fixed3 halfLambert = dot(worldNormal,worldLight) * 0.5 + 0.5;
-                fixed3 diffuse = unity_LightColor[0].rgb * _Diffuse.rgb * halfLambert;
+                fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * halfLambert;
                 
                 fixed3 color = ambient + diffuse;
                 return fixed4(color,1.0);
