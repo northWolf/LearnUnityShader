@@ -8,3 +8,6 @@ Project/Assets/Plugins/Editor/JetBrains/
 Project/Assets/Plugins/Editor.meta
 Project/Project.sln
 Project/Temp/
+Project/Assembly-CSharp.csproj
+Project/Assembly-CSharp-Editor.csproj
+Project/obj/
